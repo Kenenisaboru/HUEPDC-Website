@@ -62,4 +62,3 @@ haramaya-environment-club/
 ├── package.json
 ├── README.md
 └── .gitignore
-
