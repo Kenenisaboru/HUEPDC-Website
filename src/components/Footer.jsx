@@ -27,9 +27,9 @@ const Footer = () => {
           <div>
             <h4 style={{ color: 'white', marginBottom: '1.5rem' }}>Quick Links</h4>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              {['Home', 'About Us', 'Projects', 'Events', 'Contact'].map(item => (
+              {['Home', 'About Us', 'Projects', 'Pro Tips', 'Events', 'Contact'].map(item => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase().replace(' ', '')}`} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>
+                  <a href={`#${item.toLowerCase().replace(/ /g, '')}`} style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>
                     {item}
                   </a>
                 </li>

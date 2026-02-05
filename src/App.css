@@ -314,6 +314,40 @@ p {
   cursor: pointer;
 }
 
+/* Pro Tips Section */
+#tips {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+#tips .card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-left: 4px solid var(--primary);
+}
+
+#tips .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#tips .card:hover::before {
+  opacity: 1;
+}
+
+#tips .card h3 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero-title {
@@ -322,5 +356,13 @@ p {
   
   .nav-links {
     display: none; /* Mobile menu logic handled in React */
+  }
+  
+  .section-padding {
+    padding: 3rem 0;
+  }
+  
+  #tips .card {
+    padding: 1.5rem;
   }
 }

@@ -19,6 +19,7 @@ const Navbar = ({ activeSection, darkMode, toggleDarkMode, setShowRegistration }
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
+    { id: 'tips', label: '💡 Pro Tips' },
     { id: 'events', label: 'Events' },
     { id: 'gallery', label: 'Gallery' },
   ];

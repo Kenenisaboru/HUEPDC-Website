@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 
 // Components
 import Navbar from './components/Navbar';
@@ -61,9 +61,9 @@ const ProjectsSection = () => (
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
         {[
-          { title: 'Green Campus Initiative', progress: 85, desc: 'Transforming campus infrastructure for sustainability.' },
-          { title: 'Community Awareness', progress: 60, desc: 'Educating local communities on environmental protection.' },
-          { title: 'Waste Management Research', progress: 75, desc: 'Innovative solutions for circular economy models.' }
+          { title: 'Green Campus Initiative', progress: 85, desc: 'Transforming campus infrastructure for sustainability.', impact: 'Reduced campus carbon emissions by 30%' },
+          { title: 'Community Awareness', progress: 60, desc: 'Educating local communities on environmental protection.', impact: 'Reached 5,000+ community members' },
+          { title: 'Waste Management Research', progress: 75, desc: 'Innovative solutions for circular economy models.', impact: 'Developed 3 sustainable waste solutions' }
         ].map((project, i) => (
           <motion.div 
             key={i} 
@@ -75,6 +75,9 @@ const ProjectsSection = () => (
             </div>
             <h3>{project.title}</h3>
             <p>{project.desc}</p>
+            <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '8px', fontSize: '0.9rem', marginBottom: '1rem', color: 'var(--text-secondary)' }}>
+              <strong style={{ color: 'var(--primary)' }}>Impact:</strong> {project.impact}
+            </div>
             <div style={{ marginTop: '1rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
                 <span>Progress</span>
@@ -90,6 +93,129 @@ const ProjectsSection = () => (
     </div>
   </section>
 );
+
+const ProTipsSection = () => {
+  const [selectedCategory, setSelectedCategory] = React.useState('all');
+
+  const tips = [
+    { id: 1, category: 'daily', icon: '🔌', title: 'Energy Conservation at Home', desc: 'Switch to LED bulbs and unplug devices when not in use to reduce electricity consumption by 20-30%.' },
+    { id: 2, category: 'daily', icon: '💧', title: 'Water Saving Tips', desc: 'Fix leaking taps and take shorter showers. One person can save 8,000 gallons annually.' },
+    { id: 3, category: 'daily', icon: '♻️', title: 'Reduce Plastic Waste', desc: 'Use reusable bags, bottles, and containers. Plastic takes 500+ years to decompose.' },
+    { id: 4, category: 'community', icon: '🌍', title: 'Community Clean-ups', desc: 'Organize or participate in local cleanup drives. Every piece of trash removed protects wildlife.' },
+    { id: 5, category: 'community', icon: '🌱', title: 'Tree Planting Initiatives', desc: 'Plant native trees in your area. One tree absorbs 20kg of CO2 in its lifetime.' },
+    { id: 6, category: 'community', icon: '🤝', title: 'Educate Your Circle', desc: 'Share environmental knowledge with friends and family. Education drives behavioral change.' },
+    { id: 7, category: 'campus', icon: '📚', title: 'Sustainable Campus Practices', desc: 'Use digital notes instead of paper. Advocate for renewable energy on campus.' },
+    { id: 8, category: 'campus', icon: '🚴', title: 'Green Transportation', desc: 'Use bikes or public transport. Reduce your carbon footprint by up to 90% compared to driving.' },
+    { id: 9, category: 'food', icon: '🥬', title: 'Support Local & Organic', desc: 'Buy from local farmers. Reduces food miles and supports sustainable agriculture.' },
+    { id: 10, category: 'food', icon: '🌾', title: 'Reduce Food Waste', desc: 'Plan meals ahead and compost organic waste. Food waste contributes to methane emissions.' },
+    { id: 11, category: 'career', icon: '💼', title: 'Green Career Path', desc: 'Consider roles in renewable energy, conservation, or sustainable development.' },
+    { id: 12, category: 'career', icon: '📈', title: 'Invest in Sustainability', desc: 'Support businesses and startups focused on environmental solutions.' }
+  ];
+
+  const categories = [
+    { id: 'all', name: 'All Tips', emoji: '✨' },
+    { id: 'daily', name: 'Daily Habits', emoji: '🏠' },
+    { id: 'community', name: 'Community', emoji: '🌍' },
+    { id: 'campus', name: 'Campus Life', emoji: '🎓' },
+    { id: 'food', name: 'Food & Agriculture', emoji: '🥗' },
+    { id: 'career', name: 'Career', emoji: '💼' }
+  ];
+
+  const filteredTips = selectedCategory === 'all' 
+    ? tips 
+    : tips.filter(tip => tip.category === selectedCategory);
+
+  return (
+    <section id="tips" className="section-padding">
+      <div className="container">
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>Pro Tips for Sustainability</h2>
+          <p style={{ maxWidth: '600px', margin: '0 auto', color: 'var(--text-secondary)' }}>
+            Practical actions you can take today to make a positive environmental impact
+          </p>
+        </div>
+
+        {/* Category Filter */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '3rem', overflowX: 'auto', paddingBottom: '0.5rem' }}>
+          {categories.map(cat => (
+            <motion.button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                padding: '0.75rem 1.5rem',
+                borderRadius: '50px',
+                border: 'none',
+                background: selectedCategory === cat.id ? 'var(--primary)' : 'var(--bg-secondary)',
+                color: selectedCategory === cat.id ? 'white' : 'var(--text-primary)',
+                cursor: 'pointer',
+                fontWeight: selectedCategory === cat.id ? '600' : '500',
+                transition: 'all 0.3s',
+                fontSize: '0.95rem',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {cat.emoji} {cat.name}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Tips Grid */}
+        <motion.div
+          layout
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: '2rem'
+          }}
+        >
+          <AnimatePresence>
+            {filteredTips.map((tip) => (
+              <motion.div
+                key={tip.id}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="card"
+                whileHover={{ y: -8 }}
+                style={{ cursor: 'pointer' }}
+              >
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{tip.icon}</div>
+                <h3 style={{ marginBottom: '0.5rem' }}>{tip.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>{tip.desc}</p>
+                <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
+                  <button style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--primary)',
+                    cursor: 'pointer',
+                    fontWeight: '600',
+                    fontSize: '0.95rem'
+                  }}>
+                    Learn more →
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* CTA */}
+        <div style={{ textAlign: 'center', marginTop: '4rem' }}>
+          <p style={{ fontSize: '1.1rem', marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
+            Ready to implement these tips? Join our community!
+          </p>
+          <button className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
+            Start Your Sustainability Journey
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -173,6 +299,8 @@ function App() {
       <AboutSection />
       
       <ProjectsSection />
+
+      <ProTipsSection />
 
       <section id="events" className="section-padding">
         <div className="container">
